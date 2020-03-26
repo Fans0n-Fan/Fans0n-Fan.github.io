@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="MikroTik RouterOS漏洞分析相关材料整理，以便方便查阅漏洞复现环境搭建 https:&#x2F;&#x2F;4hou.win&#x2F;wordpress&#x2F;?p&#x3D;19279 https:&#x2F;&#x2F;xz.aliyun.com&#x2F;t&#x2F;1907 https:&#x2F;&#x2F;www.chenghuajie.cn&#x2F;1351.html https:&#x2F;&#x2F;mikrotik.com&#x2F;download&#x2F;archive https:&#x2F;&#x2F;blog.csdn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MikroTik RouterOS漏洞分析相关材料">
+<meta property="og:url" content="http://yoursite.com/2020/03/26/MikroTik-RouterOS%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%9B%B8%E5%85%B3%E6%9D%90%E6%96%99/index.html">
+<meta property="og:site_name" content="Fans0n‘s blog">
+<meta property="og:description" content="MikroTik RouterOS漏洞分析相关材料整理，以便方便查阅漏洞复现环境搭建 https:&#x2F;&#x2F;4hou.win&#x2F;wordpress&#x2F;?p&#x3D;19279 https:&#x2F;&#x2F;xz.aliyun.com&#x2F;t&#x2F;1907 https:&#x2F;&#x2F;www.chenghuajie.cn&#x2F;1351.html https:&#x2F;&#x2F;mikrotik.com&#x2F;download&#x2F;archive https:&#x2F;&#x2F;blog.csdn">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-26T10:02:02.000Z">
+<meta property="article:modified_time" content="2020-03-26T11:04:19.075Z">
+<meta property="article:author" content="Fans0n">
+<meta property="article:tag" content="Router">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>MikroTik RouterOS漏洞分析相关材料</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2020/03/26/Penetration-test-Tools/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/03/26/MikroTik-RouterOS%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%9B%B8%E5%85%B3%E6%9D%90%E6%96%99/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/03/26/MikroTik-RouterOS%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%9B%B8%E5%85%B3%E6%9D%90%E6%96%99/&text=MikroTik RouterOS漏洞分析相关材料" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/03/26/MikroTik-RouterOS%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%9B%B8%E5%85%B3%E6%9D%90%E6%96%99/&title=MikroTik RouterOS漏洞分析相关材料" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/03/26/MikroTik-RouterOS%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%9B%B8%E5%85%B3%E6%9D%90%E6%96%99/&is_video=false&description=MikroTik RouterOS漏洞分析相关材料" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=MikroTik RouterOS漏洞分析相关材料&body=Check out this article: http://yoursite.com/2020/03/26/MikroTik-RouterOS%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%9B%B8%E5%85%B3%E6%9D%90%E6%96%99/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/03/26/MikroTik-RouterOS%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%9B%B8%E5%85%B3%E6%9D%90%E6%96%99/&title=MikroTik RouterOS漏洞分析相关材料" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/03/26/MikroTik-RouterOS%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%9B%B8%E5%85%B3%E6%9D%90%E6%96%99/&title=MikroTik RouterOS漏洞分析相关材料" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/03/26/MikroTik-RouterOS%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%9B%B8%E5%85%B3%E6%9D%90%E6%96%99/&title=MikroTik RouterOS漏洞分析相关材料" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/03/26/MikroTik-RouterOS%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%9B%B8%E5%85%B3%E6%9D%90%E6%96%99/&title=MikroTik RouterOS漏洞分析相关材料" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/03/26/MikroTik-RouterOS%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%9B%B8%E5%85%B3%E6%9D%90%E6%96%99/&name=MikroTik RouterOS漏洞分析相关材料&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/03/26/MikroTik-RouterOS%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%9B%B8%E5%85%B3%E6%9D%90%E6%96%99/&t=MikroTik RouterOS漏洞分析相关材料" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MikroTik-RouterOS漏洞分析相关材料整理，以便方便查阅"><span class="toc-number">1.</span> <span class="toc-text">MikroTik RouterOS漏洞分析相关材料整理，以便方便查阅</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞复现环境搭建"><span class="toc-number">1.1.</span> <span class="toc-text">漏洞复现环境搭建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞复现细节"><span class="toc-number">1.2.</span> <span class="toc-text">漏洞复现细节</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Fuzz-Mikrotik-RouterOS"><span class="toc-number">1.3.</span> <span class="toc-text">Fuzz Mikrotik RouterOS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mikrotik-RouterOS-安全事件"><span class="toc-number">1.4.</span> <span class="toc-text">Mikrotik RouterOS 安全事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RouterOS-常见操作"><span class="toc-number">1.5.</span> <span class="toc-text">RouterOS 常见操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MikroTik-版本更新changelogs"><span class="toc-number">1.6.</span> <span class="toc-text">MikroTik 版本更新changelogs</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        MikroTik RouterOS漏洞分析相关材料
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Fans0n‘s blog</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-03-26T10:02:02.000Z" itemprop="datePublished">2020-03-26</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/Router/" rel="tag">Router</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="MikroTik-RouterOS漏洞分析相关材料整理，以便方便查阅"><a href="#MikroTik-RouterOS漏洞分析相关材料整理，以便方便查阅" class="headerlink" title="MikroTik RouterOS漏洞分析相关材料整理，以便方便查阅"></a>MikroTik RouterOS漏洞分析相关材料整理，以便方便查阅</h2><h3 id="漏洞复现环境搭建"><a href="#漏洞复现环境搭建" class="headerlink" title="漏洞复现环境搭建"></a>漏洞复现环境搭建</h3><ol>
+<li><a href="https://4hou.win/wordpress/?p=19279" target="_blank" rel="noopener">https://4hou.win/wordpress/?p=19279</a></li>
+<li><a href="https://xz.aliyun.com/t/1907" target="_blank" rel="noopener">https://xz.aliyun.com/t/1907</a></li>
+<li><a href="https://www.chenghuajie.cn/1351.html" target="_blank" rel="noopener">https://www.chenghuajie.cn/1351.html</a></li>
+<li><a href="https://mikrotik.com/download/archive" target="_blank" rel="noopener">https://mikrotik.com/download/archive</a></li>
+<li><a href="https://blog.csdn.net/qq_41453285/article/details/102152428" target="_blank" rel="noopener">https://blog.csdn.net/qq_41453285/article/details/102152428</a></li>
+<li><a href="https://medium.com/tenable-techblog/make-it-rain-with-mikrotik-c90705459bc6" target="_blank" rel="noopener">https://medium.com/tenable-techblog/make-it-rain-with-mikrotik-c90705459bc6</a></li>
+<li><a href="https://medium.com/@maxi./finding-and-exploiting-cve-2018-7445-f3103f163cc1" target="_blank" rel="noopener">https://medium.com/@maxi./finding-and-exploiting-cve-2018-7445-f3103f163cc1</a></li>
+</ol>
+<h3 id="漏洞复现细节"><a href="#漏洞复现细节" class="headerlink" title="漏洞复现细节"></a>漏洞复现细节</h3><ol>
+<li>CVE-2018-14847 MikroTik RouterOS Winbox arbitrary file read<ul>
+<li><a href="http://wp.blkstone.me/2019/09/cve-2018-14847-mikrotik-routeros-winbox-arbitrary-file-read/" target="_blank" rel="noopener">http://wp.blkstone.me/2019/09/cve-2018-14847-mikrotik-routeros-winbox-arbitrary-file-read/</a></li>
+<li><a href="https://github.com/BasuCert/WinboxPoC" target="_blank" rel="noopener">https://github.com/BasuCert/WinboxPoC</a></li>
+<li><a href="https://www.anquanke.com/post/id/162457#h3-10" target="_blank" rel="noopener">https://www.anquanke.com/post/id/162457#h3-10</a></li>
+</ul>
+</li>
+<li>Dissection of winbox Winbox critical vulnerability<ul>
+<li><a href="https://blog.n0p.me/2018/05/2018-05-21-winbox-bug-dissection/" target="_blank" rel="noopener">https://blog.n0p.me/2018/05/2018-05-21-winbox-bug-dissection/</a></li>
+</ul>
+</li>
+<li>CVE-2018-7445 MikroTik RouterOS SMB 缓冲区溢出<ul>
+<li><a href="https://4hou.win/wordpress/?p=19279" target="_blank" rel="noopener">https://4hou.win/wordpress/?p=19279</a></li>
+</ul>
+</li>
+<li><a href="https://kirils.org/slides/2017-09-15_prez_15_MT_Balccon_pub.pdf" target="_blank" rel="noopener">https://kirils.org/slides/2017-09-15_prez_15_MT_Balccon_pub.pdf</a></li>
+<li>CVE-2018-1158 MikroTik RouterOS漏洞分析之发现CVE-2019-13955<ul>
+<li><a href="https://www.anquanke.com/post/id/183451" target="_blank" rel="noopener">https://www.anquanke.com/post/id/183451</a></li>
+</ul>
+</li>
+<li>Tenable Research的专家在DerbyCon上发表了题为“Bug Hunting in RouterOS”的演讲，介绍了这项新技术，就是利用该漏洞。目前结合该漏洞的黑客工具已放出，运行RouterOS的MikroTik设备成为恶意代码的目标。<ul>
+<li><a href="https://github.com/tenable/routeros" target="_blank" rel="noopener">https://github.com/tenable/routeros</a></li>
+<li><a href="https://github.com/tenable/routeros/blob/master/slides/bug_hunting_in_routeros_derbycon_2018.pdf" target="_blank" rel="noopener">https://github.com/tenable/routeros/blob/master/slides/bug_hunting_in_routeros_derbycon_2018.pdf</a></li>
+</ul>
+</li>
+<li>通过对比 RouterOS 6.40.7 与 6.40.8 的 npk 文件来逆向工程漏洞细节的过程<ul>
+<li><a href="http://ith4cker.com/content/uploadfile/201811/aed91542039274.pdf" target="_blank" rel="noopener">http://ith4cker.com/content/uploadfile/201811/aed91542039274.pdf</a></li>
+</ul>
+</li>
+<li>Mikrotik-RouterOS-Resource-Stack-Exhaustion<ul>
+<li><a href="https://packetstormsecurity.com/files/153733/Mikrotik-RouterOS-Resource-Stack-Exhaustion.html" target="_blank" rel="noopener">https://packetstormsecurity.com/files/153733/Mikrotik-RouterOS-Resource-Stack-Exhaustion.html</a></li>
+</ul>
+</li>
+</ol>
+<h3 id="Fuzz-Mikrotik-RouterOS"><a href="#Fuzz-Mikrotik-RouterOS" class="headerlink" title="Fuzz Mikrotik RouterOS"></a>Fuzz Mikrotik RouterOS</h3><ol>
+<li>从0到Reverseshell：Mikrotik SMB漏洞实战（CVE-2018–7445）<ul>
+<li><a href="https://bbs.pediy.com/thread-250733.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-250733.htm</a></li>
+</ul>
+</li>
+</ol>
+<h3 id="Mikrotik-RouterOS-安全事件"><a href="#Mikrotik-RouterOS-安全事件" class="headerlink" title="Mikrotik RouterOS 安全事件"></a>Mikrotik RouterOS 安全事件</h3><ol>
+<li>基于 CVE-2018-14847 的 Mikrotik RouterOS 安全事件分析 <ul>
+<li><a href="http://ith4cker.com/content/uploadfile/201811/aed91542039274.pdf" target="_blank" rel="noopener">http://ith4cker.com/content/uploadfile/201811/aed91542039274.pdf</a></li>
+</ul>
+</li>
+<li>一些具体攻击案例，值得关注的是该文章中统计攻击者的具体方式<ul>
+<li><a href="https://blog.netlab.360.com/7500-mikrotik-routers-are-forwarding-owners-traffic-to-the-attackers-how-is-yours/" target="_blank" rel="noopener">https://blog.netlab.360.com/7500-mikrotik-routers-are-forwarding-owners-traffic-to-the-attackers-how-is-yours/</a></li>
+</ul>
+</li>
+</ol>
+<h3 id="RouterOS-常见操作"><a href="#RouterOS-常见操作" class="headerlink" title="RouterOS 常见操作"></a>RouterOS 常见操作</h3><ol>
+<li><a href="https://www.cnblogs.com/zoulongbin/p/5887746.html" target="_blank" rel="noopener">RouterOS 软路由常用命令</a></li>
+<li><a href="https://blog.csdn.net/zhengfeng2100/article/details/9614515" target="_blank" rel="noopener">RouterOS 命令行操作</a></li>
+</ol>
+<h3 id="MikroTik-版本更新changelogs"><a href="#MikroTik-版本更新changelogs" class="headerlink" title="MikroTik 版本更新changelogs"></a>MikroTik 版本更新changelogs</h3><ol>
+<li><a href="https://mikrotik.com/download/changelogs/long-term-release-tree" target="_blank" rel="noopener">https://mikrotik.com/download/changelogs/long-term-release-tree</a></li>
+</ol>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MikroTik-RouterOS漏洞分析相关材料整理，以便方便查阅"><span class="toc-number">1.</span> <span class="toc-text">MikroTik RouterOS漏洞分析相关材料整理，以便方便查阅</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞复现环境搭建"><span class="toc-number">1.1.</span> <span class="toc-text">漏洞复现环境搭建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞复现细节"><span class="toc-number">1.2.</span> <span class="toc-text">漏洞复现细节</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Fuzz-Mikrotik-RouterOS"><span class="toc-number">1.3.</span> <span class="toc-text">Fuzz Mikrotik RouterOS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mikrotik-RouterOS-安全事件"><span class="toc-number">1.4.</span> <span class="toc-text">Mikrotik RouterOS 安全事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RouterOS-常见操作"><span class="toc-number">1.5.</span> <span class="toc-text">RouterOS 常见操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MikroTik-版本更新changelogs"><span class="toc-number">1.6.</span> <span class="toc-text">MikroTik 版本更新changelogs</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/03/26/MikroTik-RouterOS%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%9B%B8%E5%85%B3%E6%9D%90%E6%96%99/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/03/26/MikroTik-RouterOS%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%9B%B8%E5%85%B3%E6%9D%90%E6%96%99/&text=MikroTik RouterOS漏洞分析相关材料" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/03/26/MikroTik-RouterOS%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%9B%B8%E5%85%B3%E6%9D%90%E6%96%99/&title=MikroTik RouterOS漏洞分析相关材料" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/03/26/MikroTik-RouterOS%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%9B%B8%E5%85%B3%E6%9D%90%E6%96%99/&is_video=false&description=MikroTik RouterOS漏洞分析相关材料" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=MikroTik RouterOS漏洞分析相关材料&body=Check out this article: http://yoursite.com/2020/03/26/MikroTik-RouterOS%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%9B%B8%E5%85%B3%E6%9D%90%E6%96%99/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/03/26/MikroTik-RouterOS%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%9B%B8%E5%85%B3%E6%9D%90%E6%96%99/&title=MikroTik RouterOS漏洞分析相关材料" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/03/26/MikroTik-RouterOS%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%9B%B8%E5%85%B3%E6%9D%90%E6%96%99/&title=MikroTik RouterOS漏洞分析相关材料" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/03/26/MikroTik-RouterOS%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%9B%B8%E5%85%B3%E6%9D%90%E6%96%99/&title=MikroTik RouterOS漏洞分析相关材料" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/03/26/MikroTik-RouterOS%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%9B%B8%E5%85%B3%E6%9D%90%E6%96%99/&title=MikroTik RouterOS漏洞分析相关材料" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/03/26/MikroTik-RouterOS%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%9B%B8%E5%85%B3%E6%9D%90%E6%96%99/&name=MikroTik RouterOS漏洞分析相关材料&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/03/26/MikroTik-RouterOS%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%9B%B8%E5%85%B3%E6%9D%90%E6%96%99/&t=MikroTik RouterOS漏洞分析相关材料" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2020 Fans0n
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

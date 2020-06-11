@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>深入理解PLT与GOT</title>
+      <link href="/2020/04/19/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3PLT%E4%B8%8EGOT/"/>
+      <url>/2020/04/19/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3PLT%E4%B8%8EGOT/</url>
+      
+        <content type="html"><![CDATA[<p>首先，说起plt与got表，我们就得知道什么是plt与got表，它们是干什么用的？为什么会出现？是怎么工作的？接下来，我们来讨论下我们上面提到的这些问题！</p><h3 id="0x00-plt-amp-amp-got"><a href="#0x00-plt-amp-amp-got" class="headerlink" title="0x00 plt &amp;&amp; got ?"></a>0x00 plt &amp;&amp; got ?</h3><p>got: 使得代码地址无关，基本的思想就是把跟地址相关部分放在数据段里面。这样，我们把ELF的做法，在数据段里建立一个指向这些变量的指针数据全局偏移表(Global Offset Table)</p><p>plt:</p><h3 id="0x01-why"><a href="#0x01-why" class="headerlink" title="0x01 why?"></a>0x01 why?</h3><p>操作系统通常使用动态链接的方法来提高程序运行的效率。在动态链接的情况下，程序加载的时候并不会把链接库中所有函数都一起加载进来，而是程序执行的时候按需加载，如果有函数并没有被调用，那么它就不会在程序生命中被加载进来。这样的设计就能提高程序运行的流畅度，也减少了内存空间。而且现代操作系统不允许修改代码段，只能修改数据段，那么GOT表与PLT表就应运而生。</p><h3 id="0x02-how-to-work"><a href="#0x02-how-to-work" class="headerlink" title="0x02 how to work?"></a>0x02 how to work?</h3>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> pwn </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>随笔所感</title>
       <link href="/2020/04/13/%E9%9A%8F%E7%AC%94%E6%89%80%E6%84%9F/"/>
       <url>/2020/04/13/%E9%9A%8F%E7%AC%94%E6%89%80%E6%84%9F/</url>

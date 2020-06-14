@@ -6,16 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="title: 论文翻译-‘How the ELF Ruined Christmas’date: 2020-06-11 21:37:17tags: 论文翻译 How the ELF Ruined Christmas最近时间真的是不够用，下班回来挤挤时间来写下博客，督促督促自己。准备接下来定期翻译一些比较经典的论文，从旧至新！ 摘要在过去的几十年里，计算机软件在经历攻击技术与内存错误检测与保护技术之间">
+    <meta name="description" content="How the ELF Ruined Christmas最近时间真的是不够用，下班回来挤挤时间来写下博客，督促督促自己。准备接下来定期翻译一些比较经典的论文，从旧至新！ 摘要在过去的几十年里，计算机软件在经历攻击技术与内存错误检测与保护技术之间的军备竞赛。有效的缓解技术，如ASLR，大大增加了成功利用漏洞的难度。现在的漏洞利用有俩个阶段：第一阶段的信息泄漏来弄清楚内存布局，第二阶段进行真正的exp">
 <meta property="og:type" content="article">
-<meta property="og:title" content="论文翻译-How-the-ELF-Ruined-Christmas">
+<meta property="og:title" content="论文翻译-&#39;How the ELF Ruined Christmas&#39;">
 <meta property="og:url" content="http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/index.html">
 <meta property="og:site_name" content="Fans0n‘s blog">
-<meta property="og:description" content="title: 论文翻译-‘How the ELF Ruined Christmas’date: 2020-06-11 21:37:17tags: 论文翻译 How the ELF Ruined Christmas最近时间真的是不够用，下班回来挤挤时间来写下博客，督促督促自己。准备接下来定期翻译一些比较经典的论文，从旧至新！ 摘要在过去的几十年里，计算机软件在经历攻击技术与内存错误检测与保护技术之间">
+<meta property="og:description" content="How the ELF Ruined Christmas最近时间真的是不够用，下班回来挤挤时间来写下博客，督促督促自己。准备接下来定期翻译一些比较经典的论文，从旧至新！ 摘要在过去的几十年里，计算机软件在经历攻击技术与内存错误检测与保护技术之间的军备竞赛。有效的缓解技术，如ASLR，大大增加了成功利用漏洞的难度。现在的漏洞利用有俩个阶段：第一阶段的信息泄漏来弄清楚内存布局，第二阶段进行真正的exp">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-06-11T13:37:17.417Z">
-<meta property="article:modified_time" content="2020-06-14T08:54:58.415Z">
+<meta property="article:published_time" content="2020-06-11T13:37:17.000Z">
+<meta property="article:modified_time" content="2020-06-14T09:02:14.250Z">
 <meta property="article:author" content="Fans0n">
+<meta property="article:tag" content="论文翻译">
 <meta name="twitter:card" content="summary">
     
     
@@ -36,7 +37,7 @@
         
     
     <!-- title -->
-    <title>论文翻译-How-the-ELF-Ruined-Christmas</title>
+    <title>论文翻译-&#39;How the ELF Ruined Christmas&#39;</title>
     <!-- styles -->
     
 <link rel="stylesheet" href="/css/style.css">
@@ -93,16 +94,16 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&text=论文翻译-How-the-ELF-Ruined-Christmas" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&title=论文翻译-How-the-ELF-Ruined-Christmas" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&is_video=false&description=论文翻译-How-the-ELF-Ruined-Christmas" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=论文翻译-How-the-ELF-Ruined-Christmas&body=Check out this article: http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&title=论文翻译-How-the-ELF-Ruined-Christmas" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&title=论文翻译-How-the-ELF-Ruined-Christmas" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&title=论文翻译-How-the-ELF-Ruined-Christmas" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&title=论文翻译-How-the-ELF-Ruined-Christmas" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&name=论文翻译-How-the-ELF-Ruined-Christmas&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&t=论文翻译-How-the-ELF-Ruined-Christmas" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&text=论文翻译-&#39;How the ELF Ruined Christmas&#39;" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&title=论文翻译-&#39;How the ELF Ruined Christmas&#39;" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&is_video=false&description=论文翻译-&#39;How the ELF Ruined Christmas&#39;" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=论文翻译-&#39;How the ELF Ruined Christmas&#39;&body=Check out this article: http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&title=论文翻译-&#39;How the ELF Ruined Christmas&#39;" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&title=论文翻译-&#39;How the ELF Ruined Christmas&#39;" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&title=论文翻译-&#39;How the ELF Ruined Christmas&#39;" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&title=论文翻译-&#39;How the ELF Ruined Christmas&#39;" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&name=论文翻译-&#39;How the ELF Ruined Christmas&#39;&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&t=论文翻译-&#39;How the ELF Ruined Christmas&#39;" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -119,7 +120,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        论文翻译-How-the-ELF-Ruined-Christmas
+        论文翻译-&#39;How the ELF Ruined Christmas&#39;
     </h1>
 
 
@@ -131,7 +132,7 @@
       
     <div class="postdate">
       
-        <time datetime="2020-06-11T13:37:17.417Z" itemprop="datePublished">2020-06-11</time>
+        <time datetime="2020-06-11T13:37:17.000Z" itemprop="datePublished">2020-06-11</time>
         
       
     </div>
@@ -140,14 +141,18 @@
       
 
       
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91/" rel="tag">论文翻译</a>
+    </div>
+
 
     </div>
   </header>
   
 
   <div class="content" itemprop="articleBody">
-    <p>title: 论文翻译-‘How the ELF Ruined Christmas’<br>date: 2020-06-11 21:37:17<br>tags: 论文翻译</p>
-<h2 id="How-the-ELF-Ruined-Christmas"><a href="#How-the-ELF-Ruined-Christmas" class="headerlink" title="How the ELF Ruined Christmas"></a>How the ELF Ruined Christmas</h2><p>最近时间真的是不够用，下班回来挤挤时间来写下博客，督促督促自己。准备接下来定期翻译一些比较经典的论文，从旧至新！</p>
+    <h2 id="How-the-ELF-Ruined-Christmas"><a href="#How-the-ELF-Ruined-Christmas" class="headerlink" title="How the ELF Ruined Christmas"></a>How the ELF Ruined Christmas</h2><p>最近时间真的是不够用，下班回来挤挤时间来写下博客，督促督促自己。准备接下来定期翻译一些比较经典的论文，从旧至新！</p>
 <h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>在过去的几十年里，计算机软件在经历攻击技术与内存错误检测与保护技术之间的军备竞赛。有效的缓解技术，如ASLR，大大增加了成功利用漏洞的难度。现在的漏洞利用有俩个阶段：第一阶段的信息泄漏来弄清楚内存布局，第二阶段进行真正的exp。然而因为内存损坏出现的原因范围比较广，从程序中搞清楚内存布局信息不总是可能的。</p>
 <p>在这篇论文中，我们提出了一种技术，它可以使用动态加载器来直接识别关键函数的位置并调用它们而不需要借助于信息泄漏。我们发现了ELF标准和动态链接加载器设计实现中的存在的几个基本问题，可以用来解决和执行任意的库函数。通过这些，可以绕过一些安全缓解措施技术，包括部分和全部的RELRO，这些技术是专门设计来保护ELF数据结构不变攻击者篡改。我们实现了一个工具-Leakless，并针对不同的的动态加载器实现，以前的攻击技术和现实案例对其进行评估，来确定我们发现的影响性，在另一层面，Leakless为攻击者提供了可靠的，非侵入性的攻击，并且几乎很少触发入侵检测系统。</p>
 <h3 id="1-引言"><a href="#1-引言" class="headerlink" title="1. 引言"></a>1. 引言</h3><p>自从1998年莫里斯蠕虫首次所利用的缓冲区溢出以来，内存损坏漏洞的预防，利用和缓解占用了安全研究员的网络犯罪者的大量时间，即使内存损坏漏洞在最近几年开始减少，经典的缓冲区溢出第三个最常见的软件漏洞形式，其他四个内存损坏漏洞填补了前25名。</p>
@@ -198,16 +203,16 @@
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&text=论文翻译-How-the-ELF-Ruined-Christmas" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&title=论文翻译-How-the-ELF-Ruined-Christmas" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&is_video=false&description=论文翻译-How-the-ELF-Ruined-Christmas" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=论文翻译-How-the-ELF-Ruined-Christmas&body=Check out this article: http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&title=论文翻译-How-the-ELF-Ruined-Christmas" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&title=论文翻译-How-the-ELF-Ruined-Christmas" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&title=论文翻译-How-the-ELF-Ruined-Christmas" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&title=论文翻译-How-the-ELF-Ruined-Christmas" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&name=论文翻译-How-the-ELF-Ruined-Christmas&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&t=论文翻译-How-the-ELF-Ruined-Christmas" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&text=论文翻译-&#39;How the ELF Ruined Christmas&#39;" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&title=论文翻译-&#39;How the ELF Ruined Christmas&#39;" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&is_video=false&description=论文翻译-&#39;How the ELF Ruined Christmas&#39;" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=论文翻译-&#39;How the ELF Ruined Christmas&#39;&body=Check out this article: http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&title=论文翻译-&#39;How the ELF Ruined Christmas&#39;" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&title=论文翻译-&#39;How the ELF Ruined Christmas&#39;" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&title=论文翻译-&#39;How the ELF Ruined Christmas&#39;" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&title=论文翻译-&#39;How the ELF Ruined Christmas&#39;" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&name=论文翻译-&#39;How the ELF Ruined Christmas&#39;&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/06/11/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91-How-the-ELF-Ruined-Christmas/&t=论文翻译-&#39;How the ELF Ruined Christmas&#39;" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

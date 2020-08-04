@@ -6,16 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="译文来源：https:&#x2F;&#x2F;ssd-disclosure.com&#x2F;ssd-advisory-mimosa-routers-privilege-escalation-and-authentication-bypass&#x2F; 首发Freebuf：https:&#x2F;&#x2F;freebuf.com&#x2F;mob&#x2F;vuls&#x2F;243803.html Mimosa路由器提权与身份认证绕过漏洞摘要Mimosa Networks是全球无">
+    <meta name="description" content="译文来源：https:&#x2F;&#x2F;ssd-disclosure.com&#x2F;ssd-advisory-mimosa-routers-privilege-escalation-and-authentication-bypass&#x2F; 首发Freebuf：https:&#x2F;&#x2F;freebuf.com&#x2F;vuls&#x2F;243803.html Mimosa路由器提权与身份认证绕过漏洞摘要Mimosa Networks是全球无线宽带解">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mimosa路由器提权与身份认证绕过">
 <meta property="og:url" content="http://yoursite.com/2020/07/24/Mimosa%E8%B7%AF%E7%94%B1%E5%99%A8%E6%8F%90%E6%9D%83%E4%B8%8E%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81%E7%BB%95%E8%BF%87/index.html">
 <meta property="og:site_name" content="Fans0n‘s blog">
-<meta property="og:description" content="译文来源：https:&#x2F;&#x2F;ssd-disclosure.com&#x2F;ssd-advisory-mimosa-routers-privilege-escalation-and-authentication-bypass&#x2F; 首发Freebuf：https:&#x2F;&#x2F;freebuf.com&#x2F;mob&#x2F;vuls&#x2F;243803.html Mimosa路由器提权与身份认证绕过漏洞摘要Mimosa Networks是全球无">
+<meta property="og:description" content="译文来源：https:&#x2F;&#x2F;ssd-disclosure.com&#x2F;ssd-advisory-mimosa-routers-privilege-escalation-and-authentication-bypass&#x2F; 首发Freebuf：https:&#x2F;&#x2F;freebuf.com&#x2F;vuls&#x2F;243803.html Mimosa路由器提权与身份认证绕过漏洞摘要Mimosa Networks是全球无线宽带解">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://yoursite.com/Users/fans0n/Desktop/t0194c60e8a6e47d2ae.png">
 <meta property="article:published_time" content="2020-07-24T06:09:24.000Z">
-<meta property="article:modified_time" content="2020-07-24T07:02:47.467Z">
+<meta property="article:modified_time" content="2020-08-04T02:08:04.689Z">
 <meta property="article:author" content="Fans0n">
 <meta property="article:tag" content="Router security&#x2F;IoT">
 <meta name="twitter:card" content="summary">
@@ -155,7 +155,7 @@
 
   <div class="content" itemprop="articleBody">
     <p>译文来源：<a href="https://ssd-disclosure.com/ssd-advisory-mimosa-routers-privilege-escalation-and-authentication-bypass/" target="_blank" rel="noopener">https://ssd-disclosure.com/ssd-advisory-mimosa-routers-privilege-escalation-and-authentication-bypass/</a></p>
-<p>首发Freebuf：<a href="https://freebuf.com/mob/vuls/243803.html" target="_blank" rel="noopener">https://freebuf.com/mob/vuls/243803.html</a></p>
+<p>首发Freebuf：<a href="https://freebuf.com/vuls/243803.html" target="_blank" rel="noopener">https://freebuf.com/vuls/243803.html</a></p>
 <h2 id="Mimosa路由器提权与身份认证绕过"><a href="#Mimosa路由器提权与身份认证绕过" class="headerlink" title="Mimosa路由器提权与身份认证绕过"></a>Mimosa路由器提权与身份认证绕过</h2><h3 id="漏洞摘要"><a href="#漏洞摘要" class="headerlink" title="漏洞摘要"></a>漏洞摘要</h3><p>Mimosa Networks是全球无线宽带解决方案的技术领导者，为全球的服务商，企业，和政府运营商提供光纤连接服务。该路由器中的漏洞可以通过在web界面中执行恶意代码来绕过身份认证并提权。</p>
 <h3 id="影响范围"><a href="#影响范围" class="headerlink" title="影响范围"></a>影响范围</h3><p>固件版本 &lt;= 1.5.1（最新版本）</p>
 <h3 id="漏洞细节"><a href="#漏洞细节" class="headerlink" title="漏洞细节"></a>漏洞细节</h3><p>所有的Mimosa路由器的web界面均使用php编写，并且Mimosa开发人员还有自己的小型php框架。</p>
